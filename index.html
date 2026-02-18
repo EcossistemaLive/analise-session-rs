@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parecer Técnico Consolidado - Session R&S</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --live-deep: #06192a;
+            --live-dark: #020b14;
+            --live-card-bg: rgba(10, 36, 61, 0.65);
+            --live-glass: rgba(10, 36, 61, 0.75);
+            --live-glass-hover: rgba(15, 45, 75, 0.90);
+            --glass-blur: blur(20px) saturate(180%);
+            --live-accent: #00e800;
+            --live-accent-dim: rgba(0, 232, 0, 0.15);
+            --live-warning: #f59e0b;
+            --live-danger: #ff3b3b;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-subtle: rgba(255, 255, 255, 0.1);
+            --border-active: rgba(0, 232, 0, 0.5);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--live-deep);
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; padding: 30px 0; border-bottom: 1px solid var(--border-subtle); }
+        h1 { font-size: 2.5rem; color: var(--live-accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .subtitle { font-family: 'Merriweather', serif; font-style: italic; color: var(--text-secondary); }
+        .tabs { display: flex; justify-content: center; gap: 20px; margin-bottom: 40px; }
+        .tab-btn {
+            background: transparent; border: 1px solid var(--border-subtle); color: var(--text-secondary);
+            padding: 12px 30px; border-radius: 30px; cursor: pointer; font-family: 'Poppins', sans-serif;
+            font-weight: 600; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .tab-btn.active { background: var(--live-accent); color: var(--live-deep); border-color: var(--live-accent); box-shadow: 0 0 15px rgba(0, 232, 0, 0.3); }
+        .tab-content { display: block; opacity: 1; margin-top: 40px; }
+        .btn-live {
+            display: inline-flex; align-items: center; background-color: var(--live-accent); color: var(--live-dark);
+            padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 700; margin-top: 25px;
+            transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0, 232, 0, 0.2); font-size: 0.9rem; text-transform: uppercase;
+        }
+        .badge { display: inline-flex; align-items: center; padding: 5px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; gap: 5px; }
+        .badge.recommended { background-color: var(--live-accent-dim); color: var(--live-accent); border: 1px solid var(--live-accent); }
+        .badge.warning { background-color: rgba(245, 158, 11, 0.15); color: var(--live-warning); border: 1px solid var(--live-warning); }
+        .badge.danger { background-color: rgba(255, 59, 59, 0.15); color: var(--live-danger); border: 1px solid var(--live-danger); }
+        .elite-card { background: var(--live-card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 30px; margin-bottom: 40px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+        .card-header h2 { font-size: 1.8rem; }
+        .section-title { color: var(--live-accent); font-size: 1.1rem; text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 5px; display: flex; align-items: center; gap: 10px; }
+        .narrative-text { font-family: 'Merriweather', serif; color: #e0e0e0; margin-bottom: 25px; font-size: 0.95rem; }
+        .star-list { list-style: none; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+        .star-list li { margin-bottom: 10px; display: flex; gap: 10px; }
+        .star-list strong { color: var(--live-accent); min-width: 90px; }
+        .swot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .swot-item { padding: 15px; border-radius: 8px; background: rgba(255, 255, 255, 0.03); border-left: 3px solid; }
+        .swot-item.strength { border-color: var(--live-accent); }
+        .swot-item.weakness { border-color: var(--live-warning); }
+        .swot-item.opportunity { border-color: #00d2ff; }
+        .swot-item.threat { border-color: var(--live-danger); }
+        .swot-label { display: block; font-size: 0.75rem; text-transform: uppercase; opacity: 0.7; margin-bottom: 5px; }
+        .scorecard-container { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(90deg, rgba(6,25,42,1) 0%, rgba(0,232,0,0.05) 100%); padding: 20px; border-radius: 12px; border: 1px solid var(--border-subtle); }
+        .score-metrics ul { list-style: none; columns: 2; column-gap: 40px; }
+        .score-final { text-align: right; }
+        .score-final .number { font-size: 3rem; font-weight: 700; color: var(--live-accent); line-height: 1; }
+        .score-final .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Relatório Consolidado R&S</h1>
+            <div class="subtitle">Análise Técnica de Candidatos - Live Consultoria</div>
+        </header>
+        <div id="candidates-container" class="tab-content">
+            
+        </div>
+        <footer style="margin-top: 80px; text-align: center; color: var(--text-secondary); font-size: 0.8rem; border-top: 1px solid var(--border-subtle); padding-top: 20px;">
+            PROTOCOL ELITE V6.0 - SYSTEM R&S INTELLIGENCE<br>
+            ₢ Powered by Cléber Donato. <a href="mailto:cleberdonato@ecossistemalive.com.br" style="color: inherit; text-decoration: none;">Fale Conosco</a>
+        </footer>
+    </div>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
